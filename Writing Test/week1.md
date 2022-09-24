@@ -110,7 +110,7 @@
 
 ---
 
-## **Summary Module 2 - Git & GitHub**
+## **Summary Module 2 - Git & GitHub Dasar**
 
 ### **Git**
 
