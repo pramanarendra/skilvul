@@ -199,3 +199,143 @@
 ### **Cloning Github ke Local**
 
 - Gunakan perintah `git clone <link>`
+
+---
+
+## **Summary Module 3 - HTML**
+
+### **HTML**
+
+- HTML kependekan dari Hypertext Markup Language
+- Berfungsi untuk menampilkan konten pada browser
+- Konten berupa teks, gambar, video, link, audio, dsb
+
+### **Tools Pendukung HTML**
+
+- Browser: google chrome, mozilla firefox, microsoft edge
+- Code editor: visual studio code, sublime text, atom
+
+### **Dasar-Dasar HTML**
+
+- Struktur HTML
+
+  ```
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <meta>
+      <title></title>
+    </head>
+    <body>
+      <p>This is a paragraph</p>
+    </body>
+  </html>
+  ```
+
+  - HTML ditulis dalam tingkatan-tingkatan (nested)
+  - Elemen yang berada di dalam elemen lain disebut child
+  - Elemen yang berada di atas elemen lain disebut parent
+
+- Elemen HTML
+
+  - Segala bagian HTML yang tersusun atas opening tag, content, dan closing tag
+
+- Anatomi HTML
+
+  ```
+  <p>This is a paragraph</p>
+  ```
+
+  - Elemen HTML terdiri atas 3 bagian, yaitu opening tag, content, dan closing tag
+  - Ada elemen yang tidak memiliki closing tag atau content seperti img, input, dan br
+
+- Atribut HTML
+
+  ```
+  <img id="logo" src="./asset/logo.png">
+  ```
+
+  - Properti yang dimiliki oleh elemen HTML
+
+- Komentar HTML
+
+  ```
+  <!--Ini adalah komentar-->
+  ```
+
+  - Bagian dari HTML yang tidak ditampilkan pada browser
+  - Berfungsi untuk menjelaskan kode
+
+### **Menjalankan HTML**
+
+- Cara 1
+  - Copy path dimana file HTML berada
+  - Paste path di browser
+- Cara 2
+  - Install ekstensi VS code bernama live server
+  - Buka file HTML menggunakan VS code
+  - Tekan Go Live di bagian kanan bawah
+
+### **Tag yang Populer**
+
+```
+<img src="" alt="">
+```
+
+- menampilkan gambar
+
+```
+<video>
+  <source src="" type="">
+</video>
+```
+
+- menampilkan video
+
+```
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+
+```
+
+- membuat tabel
+
+```
+<form>
+  <label for=""></label>
+  <input type="" name="">
+</form>
+```
+
+### **Semantic HTML**
+
+- Tag-tag HTML yang memiliki arti atau memberikan konteks pada struktur web
+- Contohnya adalah header, nav, section, article, aside, footer
+- `<div class="header">` dapat diganti dengan tag `<header>`
+- Kegunaan Semantic HTML:
+
+  - Dapat meningkatkan aksesibilitas
+  - Meningkatkan SEO
+  - Lebih mudah dimaintain
+
+### **Deploy HTML**
+
+- Deployment adalah proses untuk mempublikasikan aplikasi kita sehingga dapat diakses pihak lain
+- Dalam konteks aplikasi web, kita perlu men-deploy ke server
+- Deployment HTML dapat menggunakan tools bernama Netlify
+- Tahap deployment Netlify:
+  - Buat akun Netlify
+  - Pilih add new site
+  - Pilih sumber file
+  - Deploy aplikasi
