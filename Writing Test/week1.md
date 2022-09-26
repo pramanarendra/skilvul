@@ -339,3 +339,302 @@
   - Pilih add new site
   - Pilih sumber file
   - Deploy aplikasi
+
+---
+
+## **Summary Module 4 - CSS**
+
+### **CSS**
+
+- CSS merupakan singkatan dari Cascading Style Sheets
+- Berfungsi untuk memberikan style atau mendesain halaman website
+- Misalnya mengubah warna, font, menyusun layout, dsb
+
+### **Menghubungkan CSS dan HTML**
+
+Terdapat 3 cara:
+
+- Inline CSS
+
+  ```
+  <p style="color: red;">This is a paragraph</p>
+  ```
+
+  - Menambahkan CSS pada atribut tag HTML
+
+- Internal CSS
+
+  ```
+  <head>
+    <style>
+      p {
+        color: red;
+      }
+    </style>
+  </head>
+  ```
+
+  - Menambahkan CSS dengan tag `<style></style>` pada bagian head HTML
+
+- External CSS
+
+  ```
+  <link rel="stylesheet" href="style.css">
+  ```
+
+  - Menghubungkan file `.css` ke HTML dengan tag `<link>`
+
+### **CSS Syntax**
+
+- Syntax CSS terdiri atas selector yang diikuti dengan properti beserta nilai dari properti tersebut
+  ```
+  selector {
+    property1: value1;
+    property2: value2;
+  }
+  ```
+
+### **CSS Tag Name, Class Name, dan ID Name**
+
+Elemen dapat ditarget oleh CSS dengan 3 jenis nama
+
+- Tag name
+  - nama tag HTML yang ingin ditarget
+  - ditarget dengan syntax `tag-name {}`
+- Class name
+  - nilai atribut class pada tag HTML
+  - nilai class yang sama boleh digunakan pada lebih dari 1 elemen HTML
+  - ditarget dengan syntax `.class-name {}`
+- ID name
+  - nilai atribut id pada tag HTML
+  - nilai id yang sama hanya boleh digunakan pada 1 elemen HTML
+  - ditarget dengan syntax `#id-name {}`
+
+### **CSS Selector**
+
+- Chainning Selector
+
+  ```
+  tag-name.class-name#id-name {
+    background-color: blue;
+  }
+  ```
+
+  - Kita dapat menarget elemen HTML dari gabungan tag, class, dan id name
+  - Style yang akan diterapkan adalah styling dengan target yang lebih spesifik
+  - styling dengan target id memiliki prioritas tertinggi, diikuti dengan class, lalu tag name
+  - ada juga value CSS yang mengatur styling property menjadi prioritas tertinggi, yaitu `!important`
+
+- Nested Selector
+
+  ```
+  parent-name child-name {
+    margin: 20px;
+  }
+  ```
+
+  - Menarget elemen HTML yang merupakan child dari suatu parent
+  - Ditulis dengan memberikan spasi antara parent name dengan child name
+
+- Multiple Selector
+  ```
+  elemen1, elemen2, elemen3 {
+    color: red;
+  }
+  ```
+  - Jika lebih dari 1 elemen memiliki styling sama, kita dapat menggunakan multiple selector untuk meringkas kode
+  - Ditulis dengan menggunakan tanda koma pada setiap elemen
+
+### **Responsive Web Design**
+
+- Bertujuan agar website tetap terlihat rapi walau dilihat melalui device dengan ukuran berbeda-beda
+- Dilakukan dengan memberikan styling yang berbeda pada tiap ukuran device
+- Untuk memisahkan styling berdasarkan ukuran atau kondisi tertentu dapat menggunakan media query
+
+  ```
+  @media screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    }
+  }
+  ```
+
+### **Flexbox**
+
+- Konsep pada CSS yang mengatur layout dengan mengatur posisinya terhadap sumbu x dan y serta distribusi jaraknya
+- Terdiri atas kontainer dan item-item di dalamnya
+
+### **Properti pada Flexbox**
+
+- flex-direction: mengatur tata letak item child
+
+  - row: tata letak baris dari kiri ke kanan
+  - row-reverse: tata letak baris dari kanan ke kiri
+  - column: tata letak kolom dari atas ke bawah
+  - column-reverse: tata letak kolom dari bawah ke atas
+
+- flex-wrap: mengatur penyebaran item menjadi lebih dari satu baris atau kolom
+
+  - nowrap: tiap item berada di satu baris
+  - wrap: item yang tersisa dapat berada di baris baru
+  - wrap-reverse: seperti wrap namun dibalik dari baris bawah ke atas
+
+- flex-flow: gabungan dari flex-direction dan flex-wrap
+
+  - row nowrap
+  - column wrap
+  - column reverse
+  - row-reverse wrap-reverse
+
+- order: mengatur urutan susunan item
+
+  - nilai -1: item berada di paling kiri
+  - nilai 0: item tetap pada urutan semula
+  - nilai 1: item berada di urutan terakhir
+
+- justify-content: mengatur tata letak dan jarak secara horizontal
+
+  - flex-start: item berada di ujung kiri
+  - flex-end: item berada di ujung kanan
+  - center: item berada di tengah
+  - space-between: memberi jarak antar sisi elemen yang bersinggungan
+  - space-around: memberi jarak di sisi kiri dan kanan elemen
+  - space-evenly: memberi jarak di sisi kiri dan kanan seluruh elemen secara rata
+
+- align-items: mengatur tata letak dan jarak secara vertikal
+
+  - flex-start: item berada di atas
+  - flex-end: item berada di bawah
+  - center: item berada di tengah
+  - baseline: item disejajarkan berdasarkan isi konten
+  - strech: item di-strech dari atas hingga bawah kontainer
+
+- align-self: mengatur item yang spesifik pada kontainer
+
+  - memiliki nilai yang sama dengan align-item
+
+- align-content: memiliki konsep yang mirip dengan align-item tetapi digunakan pada elemen yang lebih dari 1 baris
+
+- flex-grow: mengatur size dari elemen secara spesifik agar lebih besar
+
+- flex-shrink: mengatur size dari elemen secara spesifik agar lebih keci
+
+- flex-basis: mengatur width seluruh elemen
+
+---
+
+## **Summary Module 5 - Algoritma dan Struktur Data**
+
+### **Algoritma**
+
+- Urutan langkah yang sistematis dan logis untuk menyelesaikan masalah
+- Dalam programming, bahasa pemrogramman adalah sarana untuk mengimplementasikan algoritma
+
+### **Ciri-Ciri Algoritma**
+
+Terdapat 4 ciri dari algoritma:
+
+- Memiliki input
+- Memiliki output
+- Tidak ambigu (definiteness)
+- Memiliki titik penyelesaian (finiteness)
+- Efektif dan efisien untuk dilakukan
+
+### **Jenis Proses Algoritma**
+
+Terdapat 4 proses dalam algoritma:
+
+- Sequence: proses yang dijalankan berurutan
+- Selection: proses yang dijalankan jika memenuhi kondisi tertentu
+- Iteration: proses yang terus dijalankan hingga memenuhi suatu kondisi
+- Concurrent: proses yang dijalankan beriringan dengan proses lain
+
+### **Penyajian Algoritma**
+
+Algoritma dapat disajikan dalam 3 cara:
+
+- Deskriptif: menuliskan algoritma dalam bentuk deskripsi
+- Flow chart: menuliskan algoritma dalam bentuk diagram alir
+- Pseudocode: menuliskan algoritma dalam bentuk yang mirip dengan bahasa pemrograman tetapi lebih general
+
+### **Big O Notation**
+
+- Salah satu pengukuran untuk menentukan baik tidaknya algoritma adalah space and time cost
+- space and time mengacu pada seberapa besar memori yang dipakai dan seberapa cepat algoritma dijalankan
+
+  ```
+  function sum(n) {
+    let total = 0;
+    for (let = 1; i <= n; i++) {
+      total = total +1;
+    }
+    return total;
+  }
+  ```
+
+  ```
+  function sum(n) {
+    return n * (n + 1) / 2;
+  }
+  ```
+
+- Big O Notation merupakan salah satu cara yang formal untuk mendeskripsikan performa suatu algoritma
+- Tiap-tiap proses yang dijalankan direpresentasikan dengan `n`
+- Jika terdapat 5 operasi, maka terdapat `5n`
+- Big O berfokus pada pertumbuhan komputasi secara general tanpa memperhatikan angka pastinya
+- Jika terdapat algoritma dengan 2, 3, maupun 4 operasi, maka tetap akan ditulis `O(n)`
+- Urutan kompleksitas algoritma dari yang terbaik menuju terburuk
+  - O(1)
+  - O(log n)
+  - O(n)
+  - O(n\*log n)
+  - O(n<sup>2</sup>)
+
+### **Contoh Algoritma pada Javascript**
+
+- Sorting: algoritma untuk mengurutkan item berdasarkan urutan tertentu
+- Contoh algoritma sorting:
+  - Bubble Sort
+    - Bandingkan elemen yang bersebelahan lalu tukar jika urutannya tidak sesuai
+    - Ulangi langkah sebanyak jumlah item - 1
+  - Selection sort
+    - Asumsikan elemen pertama sebagai elemen terkecil
+    - Cari apakah ada elemen lain yang lebih kecil
+    - Jika ada, tukar posisinya
+    - Ulangi proses sebanyak jumlah item - 1
+  - Merge sort
+    - Partisi tiap-tiap elemen
+    - Gabungkan partisi-partisi yang bersebelahan secara urut
+    - Lakukan terus menerus hingga seluruh partisi telah digabungkan
+
+### **Struktur Data**
+
+- Suatu format untuk mengorganisasi dan mengatur bagaimana data disimpan
+- Bertujuan untuk meningkatkan efisiensi ketika mengakses dan memodifikasi data
+- Contoh struktur data: array, stack, queue, linked list, hashmap, tree, graph
+
+### **Array**
+
+- Suatu kumpulan item yang disimpan secara kontinu dalam memori
+- Dimulai dari indeks 0
+
+  ```
+  let arr = ['a', 'b', 'c', 'd']
+  ```
+
+### **Stack**
+
+- Cara penyimpanan data yang menggunakan konsep last in first out
+- Data yang terakhir masuk perlu dikeluarkan terlebih dahulu
+- Dapat diibaratkan sebagai tumpukan barang
+
+### **Queue**
+
+- Cara penyimpanan data yang menggunakan konsep first in first out
+- Data yang paling lama masuk perlu dikeluarkan terlebih dahulu
+- Dapat diibaratkan sebagai antrian kasir
+
+### **Linked List**
+
+- Cara penyimpanan data yang menggunakan konsep node yang saling berhubungan
+- Tiap-tiap node memiliki 2 properti, yaitu data dan lokasi item selanjutnya
