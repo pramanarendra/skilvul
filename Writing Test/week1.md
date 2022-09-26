@@ -638,3 +638,202 @@ Algoritma dapat disajikan dalam 3 cara:
 
 - Cara penyimpanan data yang menggunakan konsep node yang saling berhubungan
 - Tiap-tiap node memiliki 2 properti, yaitu data dan lokasi item selanjutnya
+
+## **Summary Module 6 part I - Intro to Javascript**
+
+### **Javascript**
+
+- Bahsa pemrogramman yang berfokus pada pembuatan website agar menjadi lebih interaktif dan dinamis
+
+### **Menjalankan Javascript**
+
+- Gunakan browser yang tersedia dan buka opsi dev tools
+- Gunakan Node js
+
+### **Komentar pada Javascript**
+
+- Bagian dari kode yang tidak dieksekusi
+- Bisa satu baris saja atau banyak baris
+
+```
+// Ini adalah komentar
+
+/*
+  Ini adalah baris pertama pada komentar
+  Ini adalah baris kedua pada komentar
+*/
+```
+
+### **Tipe Data pada Javascript**
+
+Terdapat beberapa tipe data pada Javascript, yaitu:
+
+- number: data berupa angka
+- boolean: data representasi logika yang berisi nilai true atau false
+- string: data yang bersifat tekstual
+- null: nilai dari data yang sengaja dikosongkan
+- undefined: nilai dari data yang telah dideklarasi tetapi belum diberi nilai
+- object: kumpulan data yang berisi pasangan kunci dan nilai
+
+### **Operator pada Javscript**
+
+Arithmetic Operator
+
+- `+` operasi penjumlahan
+- `-` operasi pengurangan
+- `*` operasi perkalian
+- `/` operasi pembagian
+- `%` operasi modulo (mencari sisa hasil bagi)
+
+Assignment Operator
+
+- `=` menyimpan nilai ke dalam sebuah variabel
+- `+=` sama dengan `a = a + b`
+- Berlaku juga untuk operasi aritmatika lain seperti `-=`, `*=`, `/=`
+
+Increment dan Decrement Operator
+
+- `++` menambah nilai sebanyak 1 pada variabel
+- `--` mengurangi nilai sebanyak 1 pada variabel
+
+Comparison Operator
+
+- Mengembalikan nilai true atau false
+- `<` operator lebih kecil dari
+- `>` operator lebih besar dari
+- `<==` operator kurang dari atau sama dengan
+- `>==` operator lebih dari atau sama dengan
+- `===` operator sama dengan
+- `!==` operator tidak sama dengan
+
+Logical Operator
+
+- Untuk mengecek apakah statement memenuhi suatu kondisi
+- `&&` logika AND bernilai true jika seluruh kondisi terpenuhi
+- `||` logika OR bernilai true jika salah satu kondisi terpenuhi
+- `!` logika NOT bernilai true jika tidak sama
+
+### **Conditional**
+
+- Suatu statement yang dieksekusi apabila memenuhi kondisi tertentu
+- Kondisi yang berbeda akan menjalankan statement yang berbeda
+
+### **Truthy Falsy**
+
+- Suatu kondisi dikatakan memenuhi apabila bernilai true dan tidak memenuhi apabila bernilai false
+- Seluruh value bernilai truhty selain false, 0, -0, 0n, "", null, undefined, dan NaN
+
+### **Conditional Statements**
+
+If Conditional
+
+- Hanya memuat satu kondisi saja
+
+  ```
+  if(kondisi) {
+    statement;
+  }
+  ```
+
+Else Conditional
+
+- Memuat 2 kondisi
+
+  ```
+  if(kondisi1) {
+    statement;
+  } else {
+    statement;
+  }
+  ```
+
+Else If Conditional
+
+- Dapat membuat lebih dari satu kondisi
+
+  ```
+  if(kondisi1) {
+    statement;
+  } else if(kondisi2) {
+    statement;
+  } else if(kondisi3) {
+    statement;
+  } else(kondisi4) {
+    statement;
+  }
+  ```
+
+Switch Case Conditional
+
+- Digunakan jika kondisi percabangan sangat banyak
+- Lebih cocok untuk pengecekan yang bersifat kategori
+
+  ```
+  switch(expression)
+    case a:
+      statement;
+      break;
+    case b:
+      statement;
+      break;
+    case c:
+      statement;
+      break;
+    default:
+      statement;
+  ```
+
+Ternary Operator
+
+- Penulisan yang lebih singkat dari if else conditional
+
+  ```
+  condition ? statementIfTrue : statementIfFalse
+  ```
+
+### **Loop**
+
+- Statement yang diulang terus menerus hingga suatu kondisi terpenuhi
+
+For Loop
+
+- Statement perulangan yang digunakan apabila jumlah perulangan diketahui
+
+  ```
+  for(initial; condition; post expression) {
+    statement;
+  }
+  ```
+
+While Loop
+
+- Statement perulangan yang digunakan apabila jumlah perulangan belum diketahui
+
+  ```
+  while(condition) {
+    statement;
+  }
+  ```
+
+Do While Loop
+
+- Sama seperti while loop tetapi pasti dieksekusi minimal sekali
+
+  ```
+  do {
+    statemnt;
+  } while(condition)
+  ```
+
+Nested loop
+
+- Perulangan yang berada di dalam perulangan
+- Jika hanya ada 2 perulangan, masa bisa dibayangkan sebagai baris dan kolom
+
+  ```
+  for(let i=0; i>10; i++) {
+    for(let j=0; j>10; j++) {
+      console.log(`baris ke-${i} kolom ke-${j}`)
+    }
+  }
+  ```
