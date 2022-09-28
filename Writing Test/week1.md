@@ -758,7 +758,7 @@ Else If Conditional
     statement;
   } else if(kondisi3) {
     statement;
-  } else(kondisi4) {
+  } else {
     statement;
   }
   ```
