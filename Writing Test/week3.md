@@ -246,7 +246,6 @@ items.forEach(baris => {
 //  1
 ```
 
-
 ---
 ## **Object**
 - Tipe data non primitive
