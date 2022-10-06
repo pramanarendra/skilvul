@@ -3,6 +3,249 @@
 ## **Javascript Array & Multi Array**
 
 ### **Array**
+- Tipe data yang dapat menyimpan banyak data
+- Untuk Js, tipe data yang disimpan dapat berbeda-beda
+- Disusun dengan indeks yang berurutan
+- Indeks dimulai dari angka 0
+
+### **Membuat Array**
+- Array ditandai dengan kurung siku
+    ```
+    let arr = [];
+
+    let prov = ['Jawa Tengah', 'D.I. Yogyakarta', 'Jawa Barat', 'Banten']
+    ```
+
+### **Mengakses Array**
+- Array diakses menurut indeksnya
+    ```
+    let prov = ['Jawa Tengah', 'D.I. Yogyakarta', 'Jawa Barat', 'Banten']
+
+    console.log(prov[1]); //'D.I. Yogyakarta'
+    ```
+
+### **Update Array**
+- Akses array lalu assign dengan nilai baru
+    ```
+    let prov = ['Jawa Tengah', 'D.I. Yogyakarta', 'Jawa Barat', 'Banten']
+
+    prov[1] = 'Jawa Timur'
+    console.log(prov);
+    //['Jawa Tengah', 'Jawa Timur', 'Jawa Barat', 'Banten']
+    ```
+
+### **Const vs Let Array**
+- const dan let sama-sama memungkinkan untuk update nilai
+- let dapat mengubah seluruh array dengan array baru
+- const tidak bisa mengubah array dengan array baru
+
+    ```
+    const arr = ['data1', 'data2', 'data3'];
+
+    arr = ['arrBaru'];
+    //Akan terjadi error
+    ```
+
+### **Array Properties**
+- Ada banyak property bawaan dari Javascript
+- yang sering digunakan adalah constructor, length, index, input, dan prototype
+- `length`: mengetahui panjang isi array
+    ```
+    const arr = ['data1', 'data2', 'data3'];
+    console.log(arr.length) //output: 3
+    ```
+
+### **Array Methods**
+- Javascript menyediakan berbagai method bawaan
+- `.push()`: menambah item pada akhir array
+    ```
+    let buah = ["jeruk", "apel", "anggur"];
+    buah.push("pisang")
+
+    console.log(buah);
+    //["jeruk", "apel", "anggur", "pisang"];
+
+    ```
+
+- `.pop()`: menghapus item terakhir
+    ```
+    let buah = ["jeruk", "apel", "anggur"];
+    buah.pop();
+
+    console.log(buah);
+    //["jeruk", "apel"]
+    ```
+
+- `.shift()`: menghapus item pertama
+    ```
+    let buah = ["jeruk", "apel", "anggur"];
+    buah.shift();
+
+    console.log(buah);
+    //["jeruk", "apel"]
+    ```
+
+- `.unshift()`: menambah item pada awal array
+    ```
+    let buah = ["jeruk", "apel", "anggur"];
+    buah.unshift("pisang");
+
+    console.log(buah);
+    //["pisang", "jeruk", "apel", "anggur"]
+    ```
+    - `.splice()`: menghapus atau menambah item pada indeks tertentu
+    ```
+    arr.splice(idx, delete, item1, ..., itemN);
+    ```
+    ```
+    let buah = ["jeruk", "apel", "anggur", "pisang"];
+    buah.splice(2, 0, "lemon");
+
+    console.log(buah);
+    //["jeruk", "apel", "lemon", "anggur", "pisang"]
+    ```
+    ```
+    let buah = ["jeruk", "apel", "lemon", "anggur", "pisang"];
+    buah.splice(2, 2);
+
+    console.log(buah);
+    //["jeruk", "apel", "pisang"];
+    ```
+
+- `.slice()`: menyalin item yang dipilih ke dalam array baru
+    ```
+    arr.slice(start, end)
+    ```
+    - elemen start akan diambil
+    - elemen end tidak diambil
+    ```
+    let buah = ["jeruk", "apel", "lemon", "anggur", "pisang"];
+    let fav = buah.slice(1, 3);
+
+    console.log(fav)
+    //["apel", "lemon"]
+    ```
+
+- `.sort()`: mengurutkan data pada array
+    ```
+    let arr = [1, 5, 6, 7, 4];
+    arr.sort();
+
+    console.log(arr);
+    //[1, 4, 5, 6, 7]
+    ```
+
+### **Looping in Array**
+- ada beberapa cara untuk looping array
+
+Looping `for...of`
+
+- Tidak perlu menuliskan initial, condition, dan post expression
+    ```
+    let fruits = ["jeruk", "apel", "lemon", "anggur", "pisang"];
+
+    for(let fruit of fruits) {
+        console.log(fruit);
+    }
+    ```
+Method `.map()`
+
+- Melakukan perulangan dengan membuat array baru
+- Gunakan jika ingin memanipulasi nilai
+    ```
+    let nums = [1, 2, 3, 4, 5];
+
+    let quadratic = nums.map(num => {
+        return num*num;
+    });
+
+    console.log(quadratic);
+    //[1, 4, 9, 16, 25]
+    ```
+
+Method `.forEach()`
+
+- Mirip seperti perulangan biasa
+- Gunakan jika ingin menampilkan atau menyimpan data saja
+    ```
+    let fruits = ["jeruk", "apel", "lemon", "anggur", "pisang"];
+
+    fruits.forEach(fruit => {
+        console.log(fruit);
+    })
+    ```
+
+### **Multidimensional Array**
+- Array yang ada di dalam array
+- Dapat dibayangkan sebagai baris dan kolom pada tabel
+- baris: length dari array
+- kolom: isi tiap sub array
+- Analogi baris dan kolom hanya berlaku untuk array 2D
+```
+let item = [
+    ["Kaos", 10],
+    ["Jeans", 3],
+    ["Topi", 1]
+];
+```
+
+### **Akses Multidimensional Array**
+```
+let item = [
+    ["Kaos", 10],
+    ["Jeans", 3],
+    ["Topi", 1]
+];
+
+console.log(item[1][0])
+//ambil data ke-1 pada array: ["Jeans", 3]
+//ambil data ke-0 pada sub array: "Jeans"
+```
+
+### **Multidimensional Array Method**
+- Sama seperti array biasa, ada method built-in yang tersedia
+```
+let item = [
+    ["Kaos", 10],
+    ["Jeans", 3],
+    ["Topi", 1]
+];
+
+item.push(["Kaos Kaki", 8]);
+
+console.log(item);
+//  [
+//      ["Kaos", 10],
+//      ["Jeans", 3],
+//      ["Topi", 1],
+//      ["Kaos Kaki", 8]
+//  ];
+```
+
+### **Looping Multidimensional Array**
+- Sama seperti array biasa
+- Jika ingin melakukan looping hingga sub array, gunakan nested loop
+```
+let items = [
+    ["Kaos", 10],
+    ["Jeans", 3],
+    ["Topi", 1]
+];
+
+items.forEach(baris => {
+    baris.forEach(kolom => {
+        console.log(kolom)
+    })
+});
+
+//  Kaos
+//  10
+//  Jeans
+//  3
+//  Topi
+//  1
+```
+
 
 ---
 ## **Object**
