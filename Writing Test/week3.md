@@ -620,3 +620,246 @@ function faktorial(n) {
 
 faktorial(5); //output: 120
 ```
+
+
+---
+## **Asynchronous Javascript**
+
+###  **Antrian**
+- Suatu program dapat dianalogikan sebagai antrian
+- Kode suatu program dieksekusi secara berurutan dari atas ke bawah
+![antrian](./images/queue.png)
+- Tetapi Javascript memiliki beberapa sifat yang dapat memanipulasi sifat antrian tersebut
+- Sifat: single thread, multi thread, asynchronous
+
+### **Single Thread vs Multi Thread**
+
+Single Thread
+- Hanya ada satu jalur proses
+- Tiap-tiap proses hanya dapat saling tunggu menunggu
+- Dianalogikan sebagai satu kasir yang menangani antrian
+![single thread](./images/single%20thread.png)
+
+Multi Thread
+- Memiliki beberapa jalur proses
+- Tiap proses dapat berjalan secara paralel
+- Dianalogikan sebagai banyak kasir yang menangani antrian
+![multi thread](./images/multi%20thread.png)
+
+### **Non Blocking**
+- Jika ada suatu proses yang terlalu lama
+- Dan ada proses yang lebih kecil di belakangnya
+- Proses yang lebih kecil dapat menyela antrian
+![non blocking](./images/non%20blocking.png)
+
+### **Synchronous vs Asynchronous**
+Synchronous
+- Proses-proses dijalankan secara berurutan
+
+Asynchronous
+- Proses-proses dapat dijalankan tanpa harus berurutan
+- Proses dapat disela dan dilanjutkan kembali
+![sync async](./images/sync%20async.png)
+
+### **Kesimpulan Proses Javascript**
+- Javascript membuat ilusi seolah-olah berjalan secara multi thread
+- Javascript bekerja dalam single thread, tetapi secara non blocking
+- Proses-proses kecil dapat mendahului antrian meskipun proses yang membutuhkan waktu lama datang lebih dahulu
+
+### **Set Timeout**
+- Dengan set timout, kita dapat mensimulasikan durasi dari suatu proses
+- Proses yang membutuhkan waktu akan dilempar ke callback queue
+- Proses lain kemudian akan dijalankan
+- Setelah timeout habis, proses tersebut dapat dieksekusi kembali
+
+### **Contoh Kasus Set Timeout**
+![set timeout](./images/set%20timeout.png)
+1. Perintah A masuk ke stack
+1. Perintah A dijalankan
+1. Perintah A keluar dari stack
+1. Perintah B masuk ke stack
+1. Perintah B masuk ke callback queue
+1. Perintah C masuk
+1. Perintah C dijalankan
+1. Perintah C keluar dari stack
+1. Perintah B masuk kembali ke stack
+1. Perintah B dijalankan
+1. Perintah B keluar dari stack
+
+Contoh Coding
+```
+// setTimeout{() => {callback function}, timeout}
+
+console.log("A");
+
+setTimeout{() => {
+    console.log("B")
+}, 1000}
+
+console.log("C")
+
+//output: A C B
+```
+
+### **Callback**
+- Callback adalah function yang menjadi argument pada function yang lain
+- Function pada argument dijalankan setelah isi statement function utamanya selesai dijalankan
+
+### **Promises**
+- Producing code: code yang membutuhkan waktu
+- Consuming code: code yang menunggu suatu hasil
+- Promise: object yang menghubungkan producing dan consuming code
+
+### **Promise Properties**
+- Pending: proses masih berjalan, result masih undefined
+- Rejected: proses gagal, result dalam bentuk object error
+- Fulfilled: proses berhasil, result dalam bentuk suatu nilai
+
+### **Resolve & Reject**
+- Function nonton akan mengembalikan object promise
+- Object promise memiliki method then dan catch
+- Resolve ditangkap oleh then
+- Reject ditangkap oleh catch
+    ```
+    let nonton = (kondisi) => {
+        return new Promise((resolve,reject) => {
+            if(kondisi == "berhasil") {
+                resolve("nonton terpenuhi")
+            }
+            reject("batal nonton")
+        })
+    }
+
+    nonton("berhasil")
+    .then(result => {
+        console.log(result);
+    })
+    .catch(err => {
+        console.log(err);
+    })
+
+    //output: nonton terpenuhi
+    ```
+
+### **Then Chaining**
+- then dapat ditulis secara berantai
+- perlu ada keyword return
+- nilai yang direturn akan diteruskan ke then berikutnya
+    ```
+    let nontonPromise = new Promise((resolve, reject) => {
+        if (true) {
+            resolve("nonton berhasil");
+        }
+
+        reject("gagal");
+    })
+
+    nontonPromise.then((result) => {
+        console.log(result);
+        return `${result} tanggal sekian`
+    }).then((result) => {
+        console.log(result);
+    }).catch((err) => {
+        console.log(err)
+    })
+
+    //nonton berhasil
+    //nonton berhasil tanggal sekian
+    ```
+---
+## **Web Storage**
+
+### **Apa itu Web Storage**
+- Tempat untuk menyimpan data pengguna di browser
+- Tujuan:
+    - Merekam kebiasaan user
+    - Memberikan rekomendasi yang sesuai
+    - Mempercepat proses di browser
+- Data yang disimpan:
+    - Preferensi user
+    - Setting browser
+    - Waktu terakhir akses video
+    - Pencarian terakhir
+
+### **Cookies**
+- Data kecil yang dikirim dari situs web dan disimpan ke browser
+- Penyimpanan maksimum hanya 4KB
+- Data yang disimpan:
+    - Token ketika login
+    - Data pencarian
+- Kelemahan:
+    - Tiap mengakses web, cookies dikirim ulang, memperlambat aplikasi
+    - Perlu enkripsi tiap melakukan pengiriman cookies
+    - Penyimpanan relatif kecil
+    - Memiliki waktu kadaluarsa, akan dihapus jika melebihi waktu
+
+### **Local & Session Storage**
+- Dapat menyimpan data sekitar 5MB
+- Tidak mempengaruhi kinerja aplikasi
+- Tidak boleh digunakan untuk menyimpan data sensitif
+
+### **Local Storage - Menyimpan Data**
+- Data tidak memiliki waktu kadaluarsa
+- Data tetap ada meski web browser ditutup
+- Dapat menyimpan data hingga 5 MB
+- Hanya dapat menyimpan data string
+- Dilakukan dengan Method `setItem()`
+- Sebelum disimpan, gunakan `JSON.stringify()` untuk mengubah data menjadi string
+    ```
+    localStorage.setItem("key", value);
+    ```
+    ```
+    localStorage.setItem("search", "pencarian hewan");
+
+    localStorage.setItem("hewan", JSON.stringify(["kucing", "anjing", "kambing"]));
+    ```
+
+### **Local Storage - Mengambil Data**
+- Data dari local storage diambil dengan method `getItem()`
+- Gunakan `JSON.parse()` untuk mengubah string menjadi JSON
+    ```
+    localStorage.getItem("key");
+    ```
+    ```
+    let getHewanKakiEmpat = localStorage.getItem("hewan");
+    let hewanKakiEmpat = JSON.parse(getHewanKakiEmpat);
+    console.log(hewanKakiEmpat);
+    //  0: "kucing" 1: "anjing" 2: "kambing"
+    ```
+
+### **Local Storage - Menghapus Data**
+- Gunakan method `removeItem()` untuk menghapus data
+- Gunakan method `clear()` untuk menghapus semua data
+    ```
+    localStorage.removeItem("key");
+    localStorage.clear();
+    ```
+    ```
+    localStorage.removeItem("search");
+    ```
+
+### **Session Storage**
+- Data terus tersimpan selama browser terbuka
+- Data tidak hilang ketika halaman di-reload
+- Membuka tab berbeda dengan URL sama akan menciptakan session storage yang berbeda
+- Menutup tab akan menghapus data di session storage tab tersebut
+- Data yang tersimpan harus dalam bentuk string
+- Dapat menyimpan data sebanyak 5MB
+- Sintaks method dari session storage sama dengan local storage
+
+Menyimpan Data
+```
+sessionStorage.setItem('number', JSON.stringify([1, 2, 3]));
+```
+
+Mengambil Data
+```
+JSON.parse(sessionStorage.getItem('angka')));
+```
+
+Menghapus Data
+```
+sessionStorage.removeItem('key');
+
+sessionStorage.clear();
+```
