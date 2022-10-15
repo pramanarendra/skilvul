@@ -184,6 +184,7 @@ getDigimon();
     - untuk mendownload file repo ke lokal
 1. Membuat branch dari dev
     - pindah ke branch dev dahulu dengan `git switch dev`
+    - lakukan `git pull` untuk memastikan kode dalam kondisi up to date
     - buat branch sesuai fitur yang ingin dibuat dengan `git branch <nama-branch>`
     - pindah ke branch yang telah dibuat dengan `git switch <nama-branch>`
     - perintah untuk pindah branch bisa menggunakan `switch` atau `checkout`
@@ -191,7 +192,8 @@ getDigimon();
 1. Melakukan perubahan dan commit pada branch
     - lakukan perubahan pada branch masing-masing lalu push seperti biasa
     - `git add.` > `git commit -m <pesan>`
-    - Sebelum `git push -u origin <nama branch>`, lakukan `git merge dev` untuk menghindari conflict
+    - lakukan `git merge dev` untuk menghindari conflict
+    - push perubahan dengan `git push -u origin <nama branch>`
 1. Lakukan pull request
     - pull request: permintaan menggabungkan branch yang kita buat ke branch lain
     - jika orang itu adalah anggota, harus lakukan assign ke team leader di menu pull request sebelah kanan
