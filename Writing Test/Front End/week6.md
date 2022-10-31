@@ -1,4 +1,4 @@
-# Writing Test Week 6
+# Writing Test Front-End Week 6
 
 ## **React Part I - Intro to React**
 
