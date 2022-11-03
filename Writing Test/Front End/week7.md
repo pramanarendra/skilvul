@@ -381,3 +381,189 @@ return (
     // Component lain
     <Link to={about/student}>About Student</Link>
     ```
+
+---
+
+## **React Redux**
+
+### **Latar Belakang Masalah**
+- Misalkan terdapat data yang dibutuhkan oleh berbagai nested component
+- Data tersebut diterima menggunakan props
+- Props diberikan pada parent, lalu diberikan pada child, lalu diberikan pada child dari child tersebut, dan seterusnya
+- Ketika terdapat perubahan pada props parent, maka props pada nested component perlu diganti juga
+- Hal tersebut akan semakin rumit ketika terdapat banyak sekali nested component yang menerima data tersebut
+- Masalah ini disebut dengan **props drilling**
+![prop drilling](../images/prop%20drilling.png)
+
+### **Solusi Props Drilling**
+- Data disimpan ke dalam satu pusat yang independen
+- Data tidak perlu dioper antara parent dan child
+- Tiap component bisa langsung mengambil data dari pusat tersebut
+- Solusi tersebut dinamakan dengan **state management**
+![state management](../images/state%20management.png)
+- Contoh tools state management:
+    - Redux
+    - Context
+    - Jotai
+    - Zustand
+
+### **Instalasi Redux**
+- Jalankan command berikut pada folder react app
+    ```
+    npm install react-redux
+    ```
+- Install redux core
+    ```
+    npm install redux
+    ```
+
+### **Langkah-Langkah Menggunakan Redux**
+**1. Setup store sebagai pusat data**
+- Buat folder redux dan buat folder store di dalamnya
+- Buat file index.js, setup store di file tersebut
+- Gunakan function `createStore`
+    ```
+    import { createStore } from 'redux'
+
+    let store = createStore(() => {})
+    ```
+**2. Buat function reducer**
+- Buat folder reducer di dalam folder redux tadi
+- Buat file js untuk menampung reducer, misal chartReducer.js
+- Inisialisasi data yang akan dipakai dan reducer
+    ```
+    const initialState = {
+        keranjang: 0
+    }
+
+    function chartReducer(state = initialState, action) {
+        switch (action.type) {
+            default: 
+                return state
+        }
+    }
+    ```
+- Ada 2 parameter pada function reducer, yaitu state dan action
+- State mengacu pada data yang akan diberikan ketika dipanggil oleh suatu component
+- Set initial state menjadi default state dari reducer
+- Switch nantinya digunakan untuk memilih action terhadap state
+- Action merupakan suatu kegiatan untuk memanipulasi data
+- Panggil function reducer ke store yang telah dibuat
+    ```
+    let store = createStore(chartReducer)
+    ```
+**3. Buat agar store dapat diakses component dengan provider**
+- Kita perlu memberitahu bahwa store tersedia untuk component yang membutuhkan
+- Tools tersebut dinamakan dengan **Provider**
+- Provider disediakan oleh react-redux
+- Di file main.jsx, import provider
+- Bungkus component App di dalam Provider agar store dapat diakses seluruh component di dalamnya
+    ```
+    import {Provider} from 'react-redux'
+    import store from '.redux/store'
+
+    ...
+
+    <Provider store={store}>
+        <App />
+    </ Provider>
+    ```
+### **Mengambil Data dari Store**
+- Ambil data dari store menggunakan hooks `useSelector`
+    ```
+    // file component yang membutuhkan data di store
+
+    const { keranjang } = useSelector(state => state)
+    ```
+- useSelector akan mengambil data dari store
+- Di dalam store ada function reducer
+- Karena tidak melakukan action apapun, reducer akan mengembalikan nilai state default
+
+### **Membuat Action**
+- Buat folder action di dalam folder redux dan buat file js untuk menampung action
+- Pada dasarnya, action adalah sebuah object dengan properti type
+    ```
+    export const INCREMENT_CHART = "INCREMENT_CHART"
+    export const DECREMENT_CHART = "DECREMENT_CHART"
+
+    export function incrementChart() {
+        return {
+            type: INCREMENT_CHART
+        }
+    }
+
+    export function decrementChart() {
+        return {
+            type: DECREMENT_CHART
+        }
+    }
+    ```
+- Import action ke file reducer
+- Tambahkan action pada switch
+- Pada tiap-tiap case, kita dapat melakukan manipulasi state sesuai yang diinginkan
+    ```
+    const initialState = {
+        keranjang: 0
+    }
+
+    function chartReducer(state = initialState, action) {
+        switch (action.type) {
+            case INCREMENT_CHART:
+                return {
+                    keranjang: state.keranjang + 1
+                }
+            case DECREMENT_CHART:
+                return {
+                    keranjang: state.keranjang - 1
+                }
+            default: 
+                return state
+        }
+    }
+    ```
+
+### **Mengakses Action dengan useDispatch**
+- Buat component yang ingin menjalankan action
+- Pada contoh ini, component counter ingin menggunakan action increment dan decrement pada state
+    ```
+    function Counter = () => {
+        const [count, setCount] = useState(0);
+
+        const increment = ()  => {
+            setCount(count + 1)
+        }
+
+        const decrement = () => {
+            setCount(count - 1)
+        }
+
+        return (
+            <>
+                <button onClick={decrement}>-</button>
+                <span>{count}</span>
+                <button onClick={increment}>+</button>
+            </>
+        )
+    }
+    ```
+- Untuk menjalankan action, kita membutuhkan hooks **useDispatch**
+- import useDispatch dan action-action yang telah dibuat tadi
+    ```
+    import {useDispatch} from 'react-redux'
+    import {incrementChart, decrementChart} from '../redux/action/chartAction'
+    ```
+- Jalankan action di dalam useDispatch
+    ```
+    const dispatch = useDispatch();
+    const [count, setCount] = useState(0);
+
+    const increment = ()  => {
+        dispatch(incrementChart())
+        setCount(count + 1)
+    }
+
+    const decrement = ()  => {
+        dispatch(decrementChart())
+        setCount(count + 1)
+    }
+    ```
