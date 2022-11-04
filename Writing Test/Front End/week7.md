@@ -567,3 +567,162 @@ return (
         setCount(count + 1)
     }
     ```
+
+### **Combine Reducer**
+
+- Jika kita memiliki reducer lebih dari satu, kita dapat mengombinasikannya ke dalam satu store
+- Gunakan `combineReducers` pada store
+- Misal kita memiliki reducer untuk data done dan data to do
+    ```
+    // To Do Reducer
+    import {ADD_TODO} from '../action/todoAction'
+
+    const initialState = {
+        data: ["belajar redux", "belajar redux toolkit"]
+    }
+
+    function todoReducer(state = initialState, action) {
+        switch (action.type) {
+            default: return state
+        }
+    }
+
+    export default todoReducer
+    ```
+
+    ```
+    // Done Reducer
+    import { ADD_DONE } from "../action/doneAction";
+
+    const initialState = {
+        data: ["belajar react", "belajar prop types"]
+    }
+
+    function doneReducer(state = initialState, action) {
+        switch (action.type) {
+            default: return state
+        }
+    }
+
+    export default doneReducer
+    ```
+- Combine keduanya pada store dengan `combineReducers`
+- Tuliskan reducer-reducer ke dalamnya dengan struktur object
+    ```
+    import {combineReducers, createStore} from "redux";
+    import todoReducer from "../reducer/todoReducer";
+    import doneReducer from "../reducer/doneReducer";
+
+    const allReducer = combineReducers({
+        todo: todoReducer,
+        done: doneReducer
+    })
+
+
+    const store = createStore(allReducer)
+
+    export default store
+    ```
+
+### **Mengakses Combine Reducer**
+- Cara akses sama seperti biasanya dengan menggunakan `useSelector`
+- Dapat diakses seperti ketika kita mengakses object
+    ```
+    const done = useSelector(state => state.done.data);
+    const todos = useSelector(state => state.todo.data);
+
+    ...
+
+    <h2>To Do List</h2>
+    <ul>
+        {todos.map((item, index) => (
+            <li key={index}>{item}</li>
+        ))}
+    </ul>
+
+    <h2>Done List</h2>
+    <ul>
+        {dones.map((item, index) => (
+            <li key={index}>{item}</li>
+        ))}
+    </ul>
+    ```
+
+### **Action Combine Reducer**
+- Asumsikan kita ingin membuat action yang menangkap input form lalu memasukkannya ke dalam store
+- Buat file js action untuk tiap-tiap reducer
+- Buat atribut payload yang nantinya digunakan untuk menampung data input
+    ```
+    // To Do Action
+    export const ADD_TODO = "ADD_TODO";
+
+    export function addTodo(todo) {
+        return {
+            type: ADD_TODO,
+            payload: todo
+        }
+    }
+    ```
+
+    ```
+    // Done Action
+    export const ADD_DONE = "ADD_DONE";
+
+    export function addDone(done) {
+        return {
+            type: ADD_DONE,
+            payload: done
+        }
+    }
+    ```
+- Buat case baru pada reducer berdasarkan action yang sudah dibuat
+- Return data dari store ditambah dengan payload yang berisi tangkapan input user
+    ```
+    // To Do Reducer
+    function todoReducer(state = initialState, action) {
+        switch (action.type) {
+            case ADD_TODO:
+                return {
+                    data: [...state.data, action.payload]
+                }
+            default: return state
+        }
+    }
+    ```
+    ```
+    // Done Reducer
+    function doneReducer(state = initialState, action) {
+        switch (action.type) {
+            case ADD_DONE:
+                return {
+                    data: [...state.data, action.payload]
+                }
+            default: return state
+        }
+    }
+    ```
+- Siapkan form yang digunakan untuk menangkap input
+    ```
+    <form action="" onSubmit={handleSubmit}>
+        <h2>To Do List</h2>
+        <input type="text" name='inputToDo' value={inputToDo} onChange={handleChange} />
+        <button>add</button>
+    </form>
+    ```
+- Buat event handler untuk menangkap input
+- Buat event handler untuk mengirim input ke store
+- Gunakan useDispatch untuk menjalankan action
+    ```
+    const dispatch = useDispatch();
+
+    const [inputToDo, setInputToDo] = useState("");
+
+    const handleChange = (e) => {
+        setInputToDo(e.target.value)
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(addTodo(inputToDo))
+    }
+    ```
