@@ -726,3 +726,262 @@ return (
         dispatch(addTodo(inputToDo))
     }
     ```
+
+---
+
+## **React Redux Thunk**
+### **Apa itu Thunk?**
+- useDispatch akan langsung menjalankan action ketika dipanggil
+- Tapi action kita perlu proses async ketika mengambil data
+- Butuh middleware bernama `thunk` agar dapat membuat action async
+- Thunk merupakan potongan kode yang menjalankan pekerjaan yang ditunda
+- Pada Reedux, memungkinkan kita untuk menjalankan proses async pada action melalui dispatch dan getState
+- Kenapa tidak mengambil data dengan useEffect di komponen saja?
+    - agar lebih rapi, maka proses async ditulis pada action
+
+### **Inisialisasi Thunk**
+- Install thunk dengan command berikut
+    ```
+    npm install redux-thunk
+    ```
+- Buat thunk function dengan 2 argumen, dispatch dan getState
+- Thunk function tidak secara langsung dipaggil oleh app, tetapi dipanggil melalui `store.dispatch`
+
+    ```
+    const thunkFunction = (dispatch, getState) => {
+    // logic here that can dispatch actions or read state
+    }
+
+    store.dispatch(thunkFunction)
+    ```
+
+### **Membuat To Do List dengan Redux Thunk**
+
+**1. Buat Component dan Konfigurasi Redux**
+- Install redux, buat store, dan buat reducer yang diperlukan
+    ```
+    // Store
+    import { createStore, combineReducers } from "redux";
+
+    const allReducer = combineReducers({
+        todo: () => {}
+    });
+
+    const store = createStore(allReducer)
+
+    export default store;
+    ```
+    ```
+    // Reducer
+    const initialState = {
+        todos: [],
+        isLoading: false,
+        err: null,
+    }
+
+    const todoReducer = (state = initialState, action) => {
+        switch (action.type) {
+            default: return state
+        }
+    }
+
+    export default todoReducer
+    ```
+
+- Masukkan reducer pada store
+    ```
+    import { createStore, combineReducers } from "redux";
+    import todoReducer from "../reducer/todoReducer";
+
+    const allReducer = combineReducers({
+        todo: todoReducer
+    });
+
+    const store = createStore(allReducer)
+
+    export default store;
+    ```
+
+- Gunakan provider pada App
+    ```
+    import { Provider } from 'react-redux'
+    import store from './redux/store'
+
+    ...
+
+    <Provider store={store}>
+        <App />
+    </Provider>
+    ```
+
+- Buat component yang dibutuhkan
+- Cek apakah store sudah bisa diakses melalui component dengan `useSelector`
+    ```
+    import React from 'react'
+    import { useSelector } from 'react-redux'
+
+    const ToDoList = () => {
+
+        const state = useSelector(state => state.todo)
+        console.log(state)
+
+        return (
+            <div>
+                <h2>To Do List</h2>
+            </div>
+        )
+    }
+
+    export default ToDoList
+    ```
+
+**2. Setup Thunk Function**
+- Pasang thunk pada store
+- Import thunk lalu gunakan `applyMiddleware(thunk)` pada `createStore`
+    ```
+    import { createStore, combineReducers, applyMiddleware } from "redux";
+    import todoReducer from "../reducer/todoReducer";
+    import thunk from "redux-thunk";
+
+    const allReducer = combineReducers({
+        todo: todoReducer
+    });
+
+    const store = createStore(allReducer, applyMiddleware(thunk))
+
+    export default store;
+    ```
+
+**3. Buat Action yang Diperlukan**
+- Action akan dijalankan secara async untuk mengambil data
+- Install Axios untuk mengambil data dari API
+- Terdapat 3 function pada action
+    - fetchStart untuk mengubah isLoading menjadi true
+    - storeData untuk mengambil dan menyimpan data to do pada store
+    - getTodo membungkus kedua function sebelumnya
+    ```
+    import axios from "axios"
+
+    export const GET_TODO = "GET_TODO"
+    export const FETCH_START = "FETCH_START"
+    export const STORE_DATA = "STORE_DATA"
+
+    function fetchStart() {
+        return {
+            type: FETCH_START
+        }
+    }
+
+    function storeData(data) {
+        return {
+            type: STORE_DATA,
+            payload: data
+        }
+    }
+
+    export const getTodo = () => {
+        return async (dispatch) => {
+            // ubah loading menjadi true
+            dispatch(fetchStart())
+
+            // ambil data API, ubah isi data todos, loading menjadi false
+            const result = axios.get("https://634a01375df95285140a732e.mockapi.io/todo");
+            dispatch(storeData(result.data))
+        }
+    }
+    ```
+
+**4. Pasang Action pada Reducer**
+- Ambil kedua action yang sebelumnya telah dibuat
+    - FETCH_START akan mengembalikan seluruh data yang sama kecuali isLoading yang diubah menjadi true
+    - STORE_DATA akan mengembalikan data yang sama ditambah dengan data yang didapat dari API
+    ```
+    import { FETCH_START, STORE_DATA } from "../action/todoAction"
+
+    const initialState = {
+        todos: [],
+        isLoading: false,
+        err: null,
+    }
+
+    const todoReducer = (state = initialState, action) => {
+        switch (action.type) {
+            case FETCH_START:
+                return {
+                    ...state,
+                    isLoading: true
+                }
+            case STORE_DATA:
+                return {
+                    ...state,
+                    todos: action.payload,
+                    isLoading: false
+                }
+            default: return state
+        }
+    }
+
+    export default todoReducer
+    ```
+
+**5. Gunakan useEffect pada Component**
+- Untuk mengambil data, gunakan useEffect
+- useEffect diisi dengan dispatch yang di dalamnya memanggil actiona async yang telah dibuat
+    ```
+    import React, { useEffect } from 'react'
+    import { useDispatch, useSelector } from 'react-redux'
+    import { getTodo } from '../redux/action/todoAction';
+
+    const ToDoList = () => {
+
+        const dispatch = useDispatch();
+
+        const state = useSelector(state => state.todo)
+        console.log(state)
+
+        useEffect(() => {
+            dispatch(getTodo())
+        }, [])
+
+        return (
+            <div>
+                <h2>To Do List</h2>
+            </div>
+        )
+    }
+
+    export default ToDoList
+    ```
+    - Data kemudian dapat ditampilkan seperti biasa dengan `useSelector`
+    ```
+    import React, { useEffect } from 'react'
+    import { useDispatch, useSelector } from 'react-redux'
+    import { getTodo } from '../redux/action/todoAction';
+
+    const ToDoList = () => {
+
+        const dispatch = useDispatch();
+
+        const { todos, isLoading } = useSelector(state => state.todo)
+
+        useEffect(() => {
+            dispatch(getTodo())
+        }, [])
+
+        return (
+            <div>
+                <h2>To Do List</h2>
+                <ul>
+
+                    {isLoading ? <span>Loading...</span> :
+                        todos.map((item) => (
+                            <li key={item.id}>{item.todo}</li>
+                        ))
+                    }
+                </ul>
+            </div>
+        )
+    }
+
+    export default ToDoList
+    ```
